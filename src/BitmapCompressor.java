@@ -23,7 +23,7 @@
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  *  @author Zach Blick
- *  @author YOUR NAME HERE
+ *  @author Elijah Chandler
  */
 public class BitmapCompressor {
 
@@ -32,9 +32,23 @@ public class BitmapCompressor {
      * and writes the results to standard output.
      */
     public static void compress() {
-
         // TODO: complete compress()
-
+        String bits = BinaryStdIn.readString();
+        int length = bits.length();
+        int repeat = 0;
+        boolean isOne = false;
+        boolean isCompressed = false;
+        for(int i = 0; i < length;){
+            while(bits.charAt(i) == bits.charAt(i+1)){
+                BinaryStdOut.writeBit(isOne);
+                repeat++;
+                i++;
+            }
+            BinaryStdOut.write(repeat);
+            repeat = 0;
+            isOne = true;
+            i++;
+        }
         BinaryStdOut.close();
     }
 
