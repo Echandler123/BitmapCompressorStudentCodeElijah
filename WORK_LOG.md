@@ -1,11 +1,12 @@
-Name: YOUR NAME HERE
+Name: Elijah Chandler
 
-| Date    |    Time     |                                                                                                                    Update |
-|:--------|:-----------:|--------------------------------------------------------------------------------------------------------------------------:|
-| April 5 |   9-10pm    |                                                                                I tried to write abstract, efficient code. |
-| Nov 18  | 1:10- 1:40  |                                                 Thought about how to complete the problem set and started compress method |
-| Nov 20  | 10:40-11:10 | Started for loop to go through bits and check if they are the same. Then increment repeat amount each time it is the same |
-| Nov 20  | 11:10-11:40 |                            I added variables to check if the bit is one or zero and if a part had been compressed or not. |
+| Date    |    Time     |                                                                                                                                                                                                                                                                                                                             Update |
+|:--------|:-----------:|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| April 5 |   9-10pm    |                                                                                                                                                                                                                                                                                         I tried to write abstract, efficient code. |
+| Nov 18  | 1:10- 1:40  |                                                                                                                                                                                                                                                          Thought about how to complete the problem set and started compress method |
+| Nov 20  | 10:40-11:10 |                                                                                                                                                                                                          Started for loop to go through bits and check if they are the same. Then increment repeat amount each time it is the same |
+| Nov 20  | 11:10-11:40 |                                                                                                                                                                                                                                     I added variables to check if the bit is one or zero and if a part had been compressed or not. |
+| Dec 3   | 6:00 - 6:30 | Deleted most of my code for the compress and expand methods as I was getting index out of bounds with a for loop so switching to while loop and was adding the bits as ints when I can just use booleans as the data is all binary so the data can be represented by booleans. I have rewritten about half of the compress method. |
 
 
 To add a new row to the table, click into a cell and then hit shift-enter.
