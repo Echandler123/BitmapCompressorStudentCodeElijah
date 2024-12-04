@@ -44,8 +44,12 @@ public class BitmapCompressor {
                     repeat = 0;
                 }
             }
+            BinaryStdOut.write(repeat, 8);
+            repeat = 1;
+            isOne = !isOne;
         }
-    BinaryStdOut.close();
+        BinaryStdOut.write(repeat, 8);
+        BinaryStdOut.close();
     }
 
     /**
@@ -54,6 +58,15 @@ public class BitmapCompressor {
      */
     public static void expand() {
         // TODO: complete expand()
+        boolean isOne = false;
+        while(!BinaryStdIn.isEmpty()){
+            int repeat = BinaryStdIn.readInt(8);
+            for(int i = 0; i < repeat; i++){
+                BinaryStdOut.write(isOne);
+            }
+            isOne = !isOne;
+        }
+        BinaryStdOut.close();
     }
 
     /**
