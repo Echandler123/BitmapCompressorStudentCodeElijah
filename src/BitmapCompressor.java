@@ -32,29 +32,43 @@ public class BitmapCompressor {
      * and writes the results to standard output.
      */
     public static void compress() {
+        final int MAX_REPEAT = 255;
+        final int RUN_SIZE = 8;
         int repeat = 0;
+        // Current bit
         boolean isOne = false;
         while(!BinaryStdIn.isEmpty()){
+            // Read the next bit
             boolean bit = BinaryStdIn.readBoolean();
-            if(bit != isOne || repeat == 255){
-                if (repeat > 255){
-                    BinaryStdOut.write( 255, 8);
-                    BinaryStdOut.write( 0, 8);
-                    repeat =- 255;
+            // If the bit is different from the last bit or the repeat count is 255
+            if(bit != isOne || repeat == MAX_REPEAT){
+                if (repeat > MAX_REPEAT){
+                    // Write the maximum repeat value
+                    BinaryStdOut.write( MAX_REPEAT, RUN_SIZE);
+                    // Write where the to continue the repeat
+                    BinaryStdOut.write( 0, RUN_SIZE);
+                    // Subtract the maximum repeat value from the repeat count
+                    repeat =- MAX_REPEAT;
                 }
-                BinaryStdOut.write(repeat, 8);
+                // Write the repeat count
+                BinaryStdOut.write(repeat, RUN_SIZE);
                 repeat = 0;
                 isOne = bit;
             }
+            // Increment the repeat count
             repeat++;
         }
+        // Any extra repeats
         if(repeat > 0){
-            while(repeat > 255){
-                BinaryStdOut.write(255,8 );
-                BinaryStdOut.write(0,8 );
-                repeat -= 255;
+            // When the repeat count is greater than the maximum repeat value
+            while(repeat > MAX_REPEAT){
+                // Write the maximum repeat value
+                BinaryStdOut.write(MAX_REPEAT,RUN_SIZE );
+                BinaryStdOut.write(0,RUN_SIZE );
+                repeat -= MAX_REPEAT;
             }
-            BinaryStdOut.write(repeat, 8);
+            // Write the remaining repeat count
+            BinaryStdOut.write(repeat, RUN_SIZE);
         }
         BinaryStdOut.close();
     }
@@ -65,16 +79,19 @@ public class BitmapCompressor {
      */
     public static void expand() {
         boolean isOne = false;
-        while(!BinaryStdIn.isEmpty()){
-            int repeat = BinaryStdIn.readInt(8);
-            for(int i = 0; i < repeat; i++){
+        // While there are still bits to read
+        while(!BinaryStdIn.isEmpty()) {
+            // Read the repeat count
+            int repeatCount = BinaryStdIn.readInt(8);
+            // Write the bit the number of times it was repeated
+            for(int i = 0; i < repeatCount; i++){
                 BinaryStdOut.write(isOne);
             }
+            // Switch the bit
             isOne = !isOne;
         }
         BinaryStdOut.close();
     }
-
     /**
      * When executed at the command-line, run {@code compress()} if the command-line
      * argument is "-" and {@code expand()} if it is "+".
