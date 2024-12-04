@@ -32,23 +32,30 @@ public class BitmapCompressor {
      * and writes the results to standard output.
      */
     public static void compress() {
-        // TODO: complete compress()
         int repeat = 0;
         boolean isOne = false;
         while(!BinaryStdIn.isEmpty()){
-            while(BinaryStdIn.readBoolean() == isOne){
-                repeat++;
-                if (repeat > 256){
+            boolean bit = BinaryStdIn.readBoolean();
+            if(bit != isOne || repeat == 255){
+                if (repeat > 255){
                     BinaryStdOut.write( 255, 8);
                     BinaryStdOut.write( 0, 8);
-                    repeat = 0;
+                    repeat =- 255;
                 }
+                BinaryStdOut.write(repeat, 8);
+                repeat = 0;
+                isOne = bit;
+            }
+            repeat++;
+        }
+        if(repeat > 0){
+            while(repeat > 255){
+                BinaryStdOut.write(255,8 );
+                BinaryStdOut.write(0,8 );
+                repeat -= 255;
             }
             BinaryStdOut.write(repeat, 8);
-            repeat = 1;
-            isOne = !isOne;
         }
-        BinaryStdOut.write(repeat, 8);
         BinaryStdOut.close();
     }
 
@@ -57,7 +64,6 @@ public class BitmapCompressor {
      * and writes the results to standard output.
      */
     public static void expand() {
-        // TODO: complete expand()
         boolean isOne = false;
         while(!BinaryStdIn.isEmpty()){
             int repeat = BinaryStdIn.readInt(8);
